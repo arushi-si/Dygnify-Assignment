@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.active-btn {
+  border-bottom: 2px solid #fff;
+  position: relative;
+  margin-bottom: -2px;
+}
