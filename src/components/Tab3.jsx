@@ -1,18 +1,7 @@
 import axios from "axios";
 
-function postFormData(formData) {
-  axios
-    .post("http://localhost:5001/api/form", { ...formData })
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-
 function Tab3(props) {
-  const { setActiveTab, formData, setFormData } = props;
+  const { setActiveTab, formData, setFormData, initialFormData } = props;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -24,6 +13,19 @@ function Tab3(props) {
   };
 
   const { loan_amount, interest, loan_tenure } = formData;
+
+  function postFormData(formData) {
+    axios
+      .post("http://localhost:5001/api/form", { ...formData })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setFormData(initialFormData);
+    setActiveTab("tab4");
+  }
 
   return (
     <>

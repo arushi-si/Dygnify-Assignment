@@ -2,12 +2,11 @@ import { useState } from "react";
 import Tab1 from "./components/Tab1";
 import Tab2 from "./components/Tab2";
 import Tab3 from "./components/Tab3";
+import Tab4 from "./components/Tab4";
 
 function App() {
   const [activeTab, setActiveTab] = useState("tab1");
-
-  const [formData, setFormData] = useState({
-    // tab1
+  const initialFormData = {
     fullname: "",
     email: "",
     age: "",
@@ -19,7 +18,9 @@ function App() {
     loan_amount: "",
     interest: "",
     loan_tenure: "",
-  });
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
 
   return (
     <div className="flex flex-col items-center w-[28rem] mx-auto mt-16">
@@ -60,17 +61,30 @@ function App() {
           Tab3
         </button>
       </div>
-      {getActiveTab(activeTab, setActiveTab, formData, setFormData)}
+      {getActiveTab(
+        activeTab,
+        setActiveTab,
+        formData,
+        setFormData,
+        initialFormData
+      )}
     </div>
   );
 }
 
-function getActiveTab(activeTab, setActiveTab, formData, setFormData) {
+function getActiveTab(
+  activeTab,
+  setActiveTab,
+  formData,
+  setFormData,
+  initialFormData
+) {
   const props = { activeTab, setActiveTab, formData, setFormData };
   const allTabs = {
     tab1: <Tab1 {...props} />,
     tab2: <Tab2 {...props} />,
-    tab3: <Tab3 {...props} />,
+    tab3: <Tab3 {...props} initialFormData={initialFormData} />,
+    tab4: <Tab4 {...props} />,
   };
 
   return allTabs[activeTab] || <Tab1 {...props} />;
