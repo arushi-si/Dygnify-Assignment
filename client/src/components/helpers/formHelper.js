@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export function validateForm(formData) {
   const {
     fullname,
@@ -64,17 +62,4 @@ export function validateForm(formData) {
     errors["loan_tenure"] = "Loan Tenure is required";
   }
   return errors;
-}
-
-export function postFormData(formData) {
-  axios
-    .post("http://localhost:5001/api/form", { ...formData })
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  setFormData(initialFormData);
-  setActiveTab("tab4");
 }

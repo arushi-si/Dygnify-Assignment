@@ -1,6 +1,7 @@
 require("dotenv").config();
 console.clear();
 
+const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
@@ -29,6 +30,12 @@ connectToDatabase().then(() => {
 });
 
 const Form = require("./form.schema");
+
+app.use(express.static("../client/dist"));
+
+app.get("/", (_, res) => {
+  res.send(path.join(__dirname, "../client/dist/index.html"));
+});
 
 app.post("/api/form", async (req, res) => {
   try {

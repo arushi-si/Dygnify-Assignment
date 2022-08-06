@@ -1,8 +1,22 @@
+import axios from "axios";
 import { toast, Toaster } from "react-hot-toast";
-import { validateForm, postFormData } from "./helpers/formHelper";
+import { validateForm } from "./helpers/formHelper";
 
 function Tab3(props) {
-  const { formData, setFormData } = props;
+  const { setActiveTab, formData, setFormData, initialFormData } = props;
+
+  function postFormData(formData) {
+    axios
+      .post("http://localhost:5001/api/form", { ...formData })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setFormData(initialFormData);
+    setActiveTab("tab4");
+  }
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
