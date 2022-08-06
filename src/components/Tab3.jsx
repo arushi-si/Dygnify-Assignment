@@ -1,11 +1,11 @@
-import axios from "axios";
+import { toast, Toaster } from "react-hot-toast";
+import { validateForm, postFormData } from "./helpers/formHelper";
 
 function Tab3(props) {
-  const { setActiveTab, formData, setFormData, initialFormData } = props;
+  const { formData, setFormData } = props;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    // name:fullname , value:Arushi
 
     setFormData((prev) => {
       return { ...prev, [name]: value };
@@ -13,19 +13,6 @@ function Tab3(props) {
   };
 
   const { loan_amount, interest, loan_tenure } = formData;
-
-  function postFormData(formData) {
-    axios
-      .post("http://localhost:5001/api/form", { ...formData })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    setFormData(initialFormData);
-    setActiveTab("tab4");
-  }
 
   return (
     <>
@@ -86,12 +73,23 @@ function Tab3(props) {
       <button
         className="py-4 mx-auto mt-8 text-white rounded-md bg-purple-500 w-[28rem]"
         onClick={() => {
-          console.log(formData);
-          postFormData(formData);
+          const errors = validateForm(formData);
+          const isFormValid = Object.keys(errors).length === 0;
+
+          if (isFormValid) {
+            console.log(formData);
+            postFormData(formData);
+          } else {
+            toast(Object.values(errors)[0]);
+            // Object.values(errors).forEach((err) => {
+            //   toast(err);
+            // });
+          }
         }}
       >
         Submit Form
       </button>
+      <Toaster />
     </>
   );
 }

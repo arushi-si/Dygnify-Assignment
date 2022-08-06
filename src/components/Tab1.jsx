@@ -1,5 +1,6 @@
 function Tab1(props) {
   const { setActiveTab, formData, setFormData } = props;
+  const { fullname, email, age, phonenumber } = formData;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -9,8 +10,6 @@ function Tab1(props) {
       return { ...prev, [name]: value };
     });
   };
-
-  const { fullname, email, age, phonenumber } = formData;
 
   return (
     <>
